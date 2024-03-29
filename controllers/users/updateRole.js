@@ -21,21 +21,21 @@ const updateRole = async (req, res, next) => {
     if (!userToUpdate) {
       throw createErrorMessage(404, "User not found");
     }
-    console.log(req.userRole, config.adminRoles.indexOf(req.userRole));
-    console.log(
-      userToUpdate.role,
-      config.adminRoles.indexOf(userToUpdate.role)
-    );
     if (
       config.adminRoles.indexOf(req.userRole) >=
         config.adminRoles.indexOf(userToUpdate.role) &&
-      config.adminRoles.indexOf(req.userRole) !== 0
+      config.adminRoles.indexOf(req.userRole) !== 0 &&
+      config.adminRoles.indexOf(userToUpdate.role) !== -1
     ) {
       throw createErrorMessage(403, "Insufficient permissions");
     }
-    const response = await User.findByIdAndUpdate(req.body._id, role, {
-      new: true,
-    });
+    const response = await User.findByIdAndUpdate(
+      req.body._id,
+      { role: role },
+      {
+        new: true,
+      }
+    );
     if (!response) {
       throw createErrorMessage(500);
     }
