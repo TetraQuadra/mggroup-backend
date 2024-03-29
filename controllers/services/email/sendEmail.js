@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer");
 
+// TODO mograte to mailgun
+
 const sendEmail = ({ recipient, body }) => {
   if (!recipient || !body) {
     throw new Error("email content error");
