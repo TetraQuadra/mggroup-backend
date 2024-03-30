@@ -1,12 +1,13 @@
 const createErrorMessage = require("../../helpers/createErrorMessage");
 const User = require("../../models/user");
 
-const getCurrent = async (req, res, next) => {
+const getUserById = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user);
+    const user = await User.findById(req.params.userId);
     if (!user) {
       throw createErrorMessage(404);
     }
+
     res.status(200).json({
       user: {
         _id: user._id,
@@ -22,4 +23,4 @@ const getCurrent = async (req, res, next) => {
   }
 };
 
-module.exports = getCurrent;
+module.exports = getUserById;

@@ -21,7 +21,11 @@ router.get("/current", authenticate, userControllers.getCurrent);
 
 router.get("/", authenticate, userControllers.getAllUsers);
 
+router.get("/:userId", authenticate, userControllers.getUserById);
+
 router.patch("/:userId/role", authenticate, userControllers.updateRole);
+
+router.delete("/:userId", authenticate, userControllers.deleteUser);
 
 router.get("/verify/:verificationToken", userControllers.verifyEmail);
 
