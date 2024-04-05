@@ -1,7 +1,6 @@
 const createErrorMessage = require("../../helpers/createErrorMessage");
 const User = require("../../models/user");
 const config = require("../../config.json");
-const checkPrivileges = require("../../helpers/checkPrivileges");
 
 // TODO: discuss about role naming, roles amount, roles rights
 
@@ -15,11 +14,16 @@ const updateRole = async (req, res, next) => {
         `Wrong role, use one from followed: ${config.adminRoles}`
       );
     }
+
+    if (config.adminRoles.indexOf(req.body.role) < config.adminRoles.indexOf(req.user.role)) {
+      throw createErrorMessage(401, "You can't set role higher than your own");
+    }
+
     const userToUpdate = await User.findById(req.params.userId);
     if (!userToUpdate) {
       throw createErrorMessage(404, "User not found");
     }
-    checkPrivileges(req.userRole, userToUpdate.role);
+
     const response = await User.findByIdAndUpdate(
       req.params.userId,
       { role: role },

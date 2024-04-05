@@ -18,8 +18,7 @@ const authenticate = async (req, res, next) => {
     if (!user || user.token !== token) {
       throw createErrorMessage(401);
     }
-    req.user = user._id;
-    req.userRole = user.role;
+    req.user = user;
     next();
   } catch (error) {
     const { status = 500, message = "Internal server error" } = error;

@@ -10,7 +10,9 @@ const login = async (req, res, next) => {
     if (!user) {
       throw createErrorMessage(401, "Email or password is wrong");
     }
-    await comparePass(req.body.password, user.password);
+    if (!await comparePass(req.body.password, user.password)){
+      throw createErrorMessage(401, "Email or password is wrong");
+    }
     if (!user.verify) {
       throw createErrorMessage(401, "Email not verified");
     }
