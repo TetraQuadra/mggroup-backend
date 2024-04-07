@@ -3,19 +3,14 @@ const User = require("../../models/user");
 
 const deleteUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.userId);
+    const { userId } = req.params;
+    const deletedUser = await User.findByIdAndDelete(userId);
 
-    if (!user) {
-      throw createErrorMessage(404);
+    if (!deletedUser) {
+      throw createErrorMessage(404, "User not found");
     }
 
-    const response = await User.findByIdAndDelete(req.params.userId);
-
-    if (!response) {
-      throw createErrorMessage(500);
-    }
-
-    res.status(200).json("ok");
+    res.status(200).json({ message: "User deleted successfully", userId });
   } catch (error) {
     const { status = 500, message = "Internal server error" } = error;
     res.status(status).json({ status, message });
