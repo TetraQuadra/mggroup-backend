@@ -1,11 +1,13 @@
 const getAllUsers = require("./getAllUsers");
 const getUserById = require("./getUserById");
 const deleteUser = require("./deleteUser");
-const updateRole = require("./updateRole");
+const changeRole = require("./changeRole");
+const changeEmail = require("./changeEmail");
 
 module.exports = {
   getAllUsers,
   getUserById,
   deleteUser,
-  updateRole,
+  changeRole,
+  changeEmail
 };

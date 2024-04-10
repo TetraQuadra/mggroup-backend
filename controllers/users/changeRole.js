@@ -4,7 +4,7 @@ const config = require("../../config.json");
 
 // TODO: discuss about role naming, roles amount, roles rights
 
-const updateRole = async (req, res, next) => {
+const changeRole = async (req, res, next) => {
   try {
     const { role } = req.body;
 
@@ -43,4 +43,4 @@ const updateRole = async (req, res, next) => {
   }
 };
 
-module.exports = updateRole;
+module.exports = changeRole;
