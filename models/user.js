@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 const config = require("../config.json");
-const contactSchema = new Schema(
+const userSchema = new Schema(
   {
     password: {
       type: String,
@@ -36,6 +36,6 @@ const contactSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const User = model("user", contactSchema);
+const User = model("user", userSchema);
 
 module.exports = User;

@@ -11,7 +11,13 @@ const router = express.Router();
 router.get("/", authenticate, authControllers.getCurrentUser);
 
 router.post(
-  "/register",
+  "/register/createRegisterToken",
+  authenticate,
+  authControllers.createRegisterToken
+);
+
+router.post(
+  "/register/:registerToken",
   validateData(userSchema),
   encryptPassword,
   authControllers.register
