@@ -30,7 +30,7 @@ const register = async (req, res, next) => {
     );
     const email = {
       recipient: req.body.email,
-      body: `Click <a href="http://${process.env.BASE_URL}api/auth/verify/${req.body.verificationToken}">here</a> to verify your email.`,
+      body: `Click <a href="http://${process.env.BASE_URL}mg-group-admin/confirm/${req.body.verificationToken}">here</a> to verify your email.`,
     };
     // sendEmail(email);
     console.log(email);
