@@ -7,6 +7,7 @@ const swaggerDocument = require("./swagger");
 
 const authRouter = require("./routes/api/auth");
 const usersRouter = require("./routes/api/users");
+const articlesRouter = require("./routes/api/articles");
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(express.static("public"));
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/articles", articlesRouter);
 
 app.use("/api/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
