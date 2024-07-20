@@ -146,4 +146,11 @@ router.delete(
   userControllers.deleteUser
 );
 
+router.patch(
+  "/:userId",
+  authenticate,
+  verifyRoleHierarchy,
+  userControllers.updateUser
+);
+
 module.exports = router;
