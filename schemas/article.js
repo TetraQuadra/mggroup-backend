@@ -1,42 +1,90 @@
 const Joi = require("joi");
 
-const ImageSchema = Joi.object({
-  path: Joi.string().required(),
-  alt: Joi.string().required(),
-});
-
-const ArrayItemSchema = Joi.object({
-  title: Joi.string().required(),
-  descr: Joi.string().required(),
-  img: Joi.string().required(),
-  alt: Joi.string().required(),
-});
-
-const TabSchema = Joi.object({
-  title: Joi.string().required(),
-  name: Joi.string().required(),
-  imagesArr: Joi.array().items(ImageSchema).required(),
-});
-
-const SectionSchema = Joi.object({
+const HeroSchema = Joi.object({
+  _id: Joi.string().optional(),
   show: Joi.boolean().required(),
   title: Joi.string().required(),
   descr: Joi.string().required(),
   img: Joi.string().required(),
   altText: Joi.string().required(),
   btn: Joi.string().required(),
-  btnLink: Joi.string().required(),
-  array: Joi.array().items(ArrayItemSchema).required(),
-  tabs: Joi.array().items(TabSchema).required(),
 });
 
-const LandingPageSchema = Joi.object({
-  landingName: Joi.string().required(),
-  hero: SectionSchema.required(),
-  aboutUs: SectionSchema.required(),
-  services: SectionSchema.required(),
-  lastWorks: SectionSchema.required(),
-  prefs: SectionSchema.required(),
+const AboutUsSchema = Joi.object({
+  _id: Joi.string().optional(),
+  show: Joi.boolean().required(),
+  array: Joi.array()
+    .items(
+      Joi.object({
+        title: Joi.string().required(),
+        descr: Joi.string().required(),
+        img: Joi.string().required(),
+        alt: Joi.string().required(),
+      })
+    )
+    .required(),
 });
 
-module.exports = { LandingPageSchema };
+const ServicesSchema = Joi.object({
+  _id: Joi.string().optional(),
+  show: Joi.boolean().required(),
+  title: Joi.string().required(),
+  array: Joi.array()
+    .items(
+      Joi.object({
+        title: Joi.string().required(),
+        descr: Joi.string().required(),
+        bnt: Joi.string().required(),
+        btnLink: Joi.string().required(),
+        img: Joi.string().required(),
+        img2x: Joi.string().required(),
+        alt: Joi.string().required(),
+      })
+    )
+    .required(),
+});
+
+const LastWorksSchema = Joi.object({
+  _id: Joi.string().optional(),
+  show: Joi.boolean().required(),
+  title: Joi.string().required(),
+  tabs: Joi.array()
+    .items(
+      Joi.object({
+        title: Joi.string().required(),
+        name: Joi.string().required(),
+        imagesArr: Joi.array()
+          .items(
+            Joi.object({
+              path: Joi.string().required(),
+              alt: Joi.string().required(),
+            })
+          )
+          .required(),
+      })
+    )
+    .required(),
+});
+
+const PrefsSchema = Joi.object({
+  _id: Joi.string().optional(),
+  show: Joi.boolean().required(),
+  title: Joi.string().required(),
+  array: Joi.array()
+    .items(
+      Joi.object({
+        img: Joi.string().required(),
+        alt: Joi.string().required(),
+        title: Joi.string().required(),
+      })
+    )
+    .required(),
+});
+
+module.exports = {
+  HeroSchema,
+  AboutUsSchema,
+  ServicesSchema,
+  LastWorksSchema,
+  PrefsSchema,
+};

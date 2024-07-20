@@ -1,6 +1,6 @@
 const express = require("express");
 const articleControllers = require("../../controllers/article/index");
-const validateData = require("../../middleware/validateData");
+const validateArticle = require("../../middleware/validateArticle");
 const router = express.Router();
 const {
   HeroSchema,
@@ -16,7 +16,8 @@ router.get("/:section", articleControllers.getArticle);
 
 router.post(
   "/:section",
-  validateData((req) => {
+  validateArticle((req) => {
+    console.log(req.params.section);
     switch (req.params.section) {
       case "hero":
         return HeroSchema;
