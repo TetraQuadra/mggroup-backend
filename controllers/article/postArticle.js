@@ -10,21 +10,19 @@ const postArticle = async (req, res, next) => {
   }
 
   try {
-    if (sectionData._id) {
+    const existingSection = await SectionModel.findOne();
+    if (existingSection) {
       const updatedSection = await SectionModel.findByIdAndUpdate(
-        sectionData._id,
+        existingSection._id,
         sectionData,
         { new: true }
       );
-      if (!updatedSection) {
-        return res.status(404).json({ message: "Section not found" });
-      }
       return res.status(200).json(updatedSection);
     }
 
     const newSection = new SectionModel(sectionData);
     const savedSection = await newSection.save();
-    res.status(201).json(savedSection);
+    return res.status(201).json(savedSection);
   } catch (error) {
     next(error);
   }
