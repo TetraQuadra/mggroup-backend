@@ -4,14 +4,9 @@ const config = require("../../config.json");
 
 const updateUser = async (req, res, next) => {
   const { userId } = req.params;
-  const { email, role } = req.body;
+  const { email, role, name } = req.body;
 
   try {
-    if (!email && !role) {
-      throw createErrorMessage(400, "Email or role is required");
-    }
-
-    // Check if user exists
     const userToUpdate = await User.findById(userId);
     if (!userToUpdate) {
       throw createErrorMessage(404, "User not found");
@@ -20,6 +15,10 @@ const updateUser = async (req, res, next) => {
     const updateData = {};
     if (email) {
       updateData.email = email;
+    }
+
+    if (name) {
+      updateData.name = name;
     }
 
     if (role) {
@@ -55,6 +54,7 @@ const updateUser = async (req, res, next) => {
       _id: updatedUser._id,
       email: updatedUser.email,
       role: updatedUser.role,
+      name: updatedUser.name,
     });
   } catch (error) {
     const { status = 500, message = "Internal server error" } = error;
